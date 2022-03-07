@@ -14,11 +14,9 @@ const server = require('../server');
 chai.use(chaiHttp);
 
 suite('Functional Tests', function() {
+  let _ids = [];
 
-  /*
-  * ----[EXAMPLE TEST]----
-  * Each test should completely test the response of the API end-point including response status code!
-  */
+  /* ---[EXAMPLE TEST]---- */
   test('#example Test GET /api/books', function(done){
      chai.request(server)
       .get('/api/books')
@@ -31,26 +29,29 @@ suite('Functional Tests', function() {
         done();
       });
   });
-  /*
-  * ----[END of EXAMPLE TEST]----
-  */
+  /* ---[END of EXAMPLE TEST]---- */
+
+
 
   suite('Routing tests', function() {
-
 
     suite('POST /api/books with title => create book object/expect book object', function() {
       
 
-      test('Test POST /api/books with title', function(done) {
+      // #1
+      test(`POST /api/books with title`, function(done) {
         chai.request(server)
-          .post(`api/books`)
+          .post(`/api/books`)
           .send({
-            title: "For The Love Of Makeup",
+            title: 'book title'
           })
-          .end(function(err, res){
+          .end(function(err, res) {
+            _ids.unshift(res.body._id)
             assert.equal(res.status, 200);
-          })
-        done();
+            assert.equal(res.body.title, "book title");
+            assert.equal(res.body._id, _ids[0]);
+            done();
+          });
       });
       
       test('Test POST /api/books with no title given', function(done) {
@@ -66,6 +67,8 @@ suite('Functional Tests', function() {
 
 
     suite('GET /api/books => array of books', function(){
+      chai.request(server)
+        .post(`api/books/`)
       
       test('Test GET /api/books',  function(done){
         //done();

@@ -15,7 +15,7 @@ module.exports = function (app) {
 
   app.route('/api/books')
     .get(function (req, res){
-      res.json([{}])
+      return res.json([{}])
 
       //response will be array of book objects
       //json res format: [{"_id": bookid, "title": book_title, "commentcount": num_of_comments },...]
@@ -24,10 +24,12 @@ module.exports = function (app) {
     .post(function (req, res){
       let title = req.body.title;
       if(!title){
-        return JSON.stringify('missing required field title');
+        return res.json('missing required field title')
       }
-      return "";
-      //response will contain new book object including atleast _id and title
+
+      console.log('calling function')
+      const book = bookHandler.createBook(title)
+      return res.json(book)
     })
     
     .delete(function(req, res){
