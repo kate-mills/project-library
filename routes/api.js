@@ -8,16 +8,25 @@
 
 'use strict';
 
+const BookHandler = require('../controllers/bookHandler.js');
+
 module.exports = function (app) {
+  let bookHandler = new BookHandler();
 
   app.route('/api/books')
     .get(function (req, res){
+      res.json([{}])
+
       //response will be array of book objects
       //json res format: [{"_id": bookid, "title": book_title, "commentcount": num_of_comments },...]
     })
     
     .post(function (req, res){
       let title = req.body.title;
+      if(!title){
+        return JSON.stringify('missing required field title');
+      }
+      return "";
       //response will contain new book object including atleast _id and title
     })
     
