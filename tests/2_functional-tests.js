@@ -26,6 +26,7 @@ suite('Functional Tests', function() {
         assert.property(res.body[0], 'commentcount', 'Books in array should contain commentcount');
         assert.property(res.body[0], 'title', 'Books in array should contain title');
         assert.property(res.body[0], '_id', 'Books in array should contain _id');
+
         done();
       });
   });
@@ -35,8 +36,7 @@ suite('Functional Tests', function() {
 
   suite('Routing tests', function() {
 
-    suite('POST /api/books with title => create book object/expect book object', function() {
-      
+    suite('POST /api/books with title => create book object/ expect book object', function() {
 
       // #1
       test(`POST /api/books with title`, function(done) {
@@ -53,24 +53,26 @@ suite('Functional Tests', function() {
             done();
           });
       });
-      
-      test('Test POST /api/books with no title given', function(done) {
+
+      // #2
+      test(`POST /api/books with no title given`, function(done) {
         chai.request(server)
-          .post(`api/books`)
+          .post(`/api/books`)
           .send({})
-          .end(function(err, res){
+          .end(function(err, res) {
             assert.equal(res.status, 200);
-          })
-        done();
+            assert.equal(res.text, 'missing required field title');
+            done();
+          });
       });
     });
 
 
     suite('GET /api/books => array of books', function(){
-      chai.request(server)
-        .post(`api/books/`)
-      
+
+      // #3
       test('Test GET /api/books',  function(done){
+
         //done();
       });      
       

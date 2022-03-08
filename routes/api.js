@@ -24,7 +24,7 @@ module.exports = function (app) {
     .post(function (req, res){
       let title = req.body.title;
       if(!title){
-        return res.json('missing required field title')
+        return res.send('missing required field title')
       }
 
       console.log('calling function')
