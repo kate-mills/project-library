@@ -42,8 +42,21 @@ suite('Functional Tests', function () {
     )
 
     suite('GET /api/books => array of books', function () {
+      // #3
       test('Test GET /api/books', function (done) {
-        done()
+        chai
+          .request(server)
+          .get(`/api/books`)
+          .end(function (err, res) {
+            console.log(res.body)
+            assert.equal(res.status, 200)
+            assert.equal(res.body.length, 1)
+            assert.equal(res.body[0].title, 'Atomic Habits')
+            assert.equal(res.body[0]._id, _ids[0])
+            assert.equal(res.body[0].commentcount, 0);
+            assert.equal(res.body[0].comments.length, 0);
+            done()
+          })
       })
     })
 
