@@ -20,10 +20,7 @@ module.exports = function (app) {
     })
 
     .delete(function (req, res) {
-
-
       //if successful response will be 'complete delete successful'
-
     })
 
   app
@@ -34,9 +31,15 @@ module.exports = function (app) {
     })
 
     .post(function (req, res) {
-      let bookid = req.params.id
-      let comment = req.body.comment
-      //json res format same as .get
+      let {body:{comment}, params:{id}} = req
+
+      if(!id){
+        return res.send('missing required field id');
+      }
+      if(!comment){
+        return res.send('missing required field comment');
+      }
+      res.send(bookHandler.updateBookWithAComment(id, comment));
     })
 
     .delete(function (req, res) {
