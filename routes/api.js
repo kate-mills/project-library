@@ -20,14 +20,17 @@ module.exports = function (app) {
     })
 
     .delete(function (req, res) {
+
+
       //if successful response will be 'complete delete successful'
+
     })
 
   app
     .route('/api/books/:id')
     .get(function (req, res) {
       let bookid = req.params.id
-      //json res format: {"_id": bookid, "title": book_title, "comments": [comment,comment,...]}
+      return res.send(bookHandler.getBookById(bookid));
     })
 
     .post(function (req, res) {
