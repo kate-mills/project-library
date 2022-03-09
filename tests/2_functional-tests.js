@@ -53,7 +53,7 @@ suite('Functional Tests', function () {
 
     suite('GET /api/books/[id] => book object with [id]', function () {
 
-     // #3
+     // #4
      test('Test GET /api/books/[id] with valid id in db',  function(done){
         chai.request(server).get(`/api/books/${_ids[0]}`)
           .end(function(err, res) {
@@ -67,7 +67,7 @@ suite('Functional Tests', function () {
           })
       });
       
-      // #4
+      // #5
       test('Test GET /api/books/[id] with id not in db', function (done) {
         chai.request(server).get(`/api/books/123`)
           .end(function(err, res) {
@@ -81,16 +81,43 @@ suite('Functional Tests', function () {
     suite(
       'POST /api/books/[id] => add comment/expect book object with id',
       function () {
+
+        // #6
         test('Test POST /api/books/[id] with comment', function (done) {
-          //done()
+          chai.request(server).post(`/api/books/${_ids[0]}`)
+            .send({comment: 'Wow, I loved the book!'})
+            .end(function(err, res) {
+              assert.equal(res.status, 200);
+              assert.equal(res.body.title, 'Atomic Habits')
+              assert.equal(res.body.comments.length, 1);
+              assert.equal(res.body.comments[0], 'Wow, I loved the book!')
+              assert.equal(res.body._id, _ids[0])
+              assert.equal(res.body.__v, 1);
+              assert.equal(res.body.commentcount, 1);
+              done()
+            })
         })
 
+        // #7
         test('Test POST /api/books/[id] without comment field', function (done) {
-          //done()
+          chai.request(server).post(`/api/books/${_ids[0]}`)
+            .send({})
+            .end(function(err, res){
+              assert.equal(res.status, 200);
+              assert.equal(res.text, 'missing required field comment')
+              done()
+            })
         })
 
+        // #8
         test('Test POST /api/books/[id] with comment, id not in db', function (done) {
-          //done()
+          chai.request(server).post(`/api/books/123`)
+            .send({comment: 'I have the wrong id'})
+            .end(function(err, res){
+              assert.equal(res.status, 200);
+              assert.equal(res.text, 'no book exists')
+              done()
+            })
         })
       }
     )

@@ -33,9 +33,10 @@ function BookHandler() {
       }
       return book
     })
+
     return (updateCount < 1
-      ? 'no book exists'
-      : this.db.find(book => book._id === id))
+      ? 'no book exists' : this.db.find(book => book._id === id)
+    )
   }
 
 }
