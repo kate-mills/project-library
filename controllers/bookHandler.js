@@ -8,13 +8,13 @@ function getId() {
 function BookHandler() {
   this.db = []
 
-  this.createBook = function (title) {
+  this.createBook = function(title) {
     let book = { title, _id: getId() }
     this.db.unshift({ comments: [], ...book, commentcount: 0, __v: 0 })
     return { ...book }
   }
 
-  this.getBookById = function (id) {
+  this.getBookById = function(id) {
     let book = this.db.find((item) => {
       return item._id === id
     })
