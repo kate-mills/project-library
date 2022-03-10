@@ -20,7 +20,7 @@ module.exports = function (app) {
     })
 
     .delete(function (req, res) {
-      //if successful response will be 'complete delete successful'
+      return res.send(bookHandler.deleteAllBooks());
     })
 
   app

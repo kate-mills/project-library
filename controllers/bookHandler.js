@@ -54,5 +54,10 @@ function BookHandler() {
 
     return 'delete successful'
   }
+
+  this.deleteAllBooks = function(){
+    this.db = [];
+    return 'complete delete successful'
+  }
 }
 module.exports = BookHandler
