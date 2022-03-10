@@ -138,7 +138,7 @@ suite('Functional Tests', function () {
       }
     )
 
-    suite( 'DELETE /api/books/[id] => delete book object id', function () {
+    suite('DELETE /api/books/[id] => delete book object id', function () {
       // #9
       test('Test DELETE /api/books/[id] with  id not in db', function (done) {
         chai
@@ -162,8 +162,6 @@ suite('Functional Tests', function () {
           })
       })
 
-
-
       // #11
       test('Test DELETE /api/books delete all books', function (done) {
         chai
@@ -175,8 +173,6 @@ suite('Functional Tests', function () {
             done()
           })
       })
-
-
     })
   })
 })
