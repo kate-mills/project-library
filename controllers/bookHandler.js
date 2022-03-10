@@ -39,5 +39,20 @@ function BookHandler() {
     )
   }
 
+  this.deleteBookById = function(id){
+    let initBooks  = [...this.db]
+
+    let books = [...this.db].filter(book => {
+      return book._id !== id
+    })
+
+    if (books.length === initBooks.length){
+      return 'no book exists'
+    }
+
+    this.db = books
+
+    return 'delete successful'
+  }
 }
 module.exports = BookHandler

@@ -43,7 +43,11 @@ module.exports = function (app) {
     })
 
     .delete(function (req, res) {
-      let bookid = req.params.id
-      //if successful response will be 'delete successful'
+      let {id} = req.params
+
+      if(!id){
+        return res.send('missing required field id')
+      }
+      res.send(bookHandler.deleteBookById(id))
     })
 }
